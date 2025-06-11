@@ -1,0 +1,15 @@
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\bin\Debug\net6.0\Hitachi_SPACE_2025.exe
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\bin\Debug\net6.0\Hitachi_SPACE_2025.deps.json
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\bin\Debug\net6.0\Hitachi_SPACE_2025.runtimeconfig.json
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\bin\Debug\net6.0\Hitachi_SPACE_2025.dll
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\bin\Debug\net6.0\Hitachi_SPACE_2025.pdb
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.csproj.AssemblyReference.cache
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.AssemblyInfoInputs.cache
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.AssemblyInfo.cs
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.csproj.CoreCompileInputs.cache
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.dll
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\refint\Hitachi_SPACE_2025.dll
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.pdb
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\Hitachi_SPACE_2025.genruntimeconfig.cache
+C:\Users\Marto\Desktop\Algorithms\Hitachi_SPACE_2025\Hitachi_SPACE_2025\obj\Debug\net6.0\ref\Hitachi_SPACE_2025.dll
