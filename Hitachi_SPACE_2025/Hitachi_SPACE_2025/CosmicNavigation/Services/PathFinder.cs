@@ -1,4 +1,5 @@
-﻿using Hitachi_SPACE_2025.CosmicNavigation.Models;
+﻿using Hitachi_SPACE_2025.CosmicNavigation.Exceptions;
+using Hitachi_SPACE_2025.CosmicNavigation.Models;
 
 namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
     internal class PathFinder {
@@ -13,7 +14,7 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
             this.cosmicMap = cosmicMap;
         }
 
-        public int CountPathsUsingDFS() {
+        public int CountAllPaths() {
             Position start = cosmicMap.GetStartPosition();
             Position end = cosmicMap.GetEndPosition();
 
@@ -40,7 +41,15 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
             return pathCount;
         }
 
-        public List<Position> FindShortestPathUsingBFS() {
+        public List<Position> FindShortestPath() {
+            if (BFS().Count == 0) {
+                throw new ShortestPathNotFoundException();
+            }
+
+            return BFS();
+        }
+
+        private List<Position> BFS() {
             Position start = cosmicMap.GetStartPosition();
             Position end = cosmicMap.GetEndPosition();
 
