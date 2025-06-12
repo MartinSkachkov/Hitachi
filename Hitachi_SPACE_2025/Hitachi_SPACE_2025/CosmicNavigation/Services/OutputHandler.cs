@@ -2,6 +2,14 @@
 
 namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
 
+    // Handles output related to cosmic navigation results.
+    // 
+    // This class is responsible for:
+    // - Displaying the total number of possible paths from start (S) to finish (F).
+    // - Showing the length of the shortest path found.
+    // - Printing a visual representation of the shortest path on the map,
+    //   with step numbers overlayed on the original map symbols.
+
     internal class OutputHandler {
 
         public static void PrintResults(int totalPaths, int shortestLength, List<Position> shortestPath, CosmicMap map) {
@@ -27,5 +35,7 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
                 Console.WriteLine();
             }
         }
+
     }
+
 }

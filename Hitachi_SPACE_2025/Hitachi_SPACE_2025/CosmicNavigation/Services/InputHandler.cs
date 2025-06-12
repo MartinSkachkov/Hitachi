@@ -1,29 +1,35 @@
 ﻿namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
 
+    // Handles user input for the cosmic navigation map.
+    // 
+    // This class is responsible for:
+    // - Prompting the user to enter valid map dimensions (rows and columns) within defined limits.
+    // - Reading the cosmic map rows from user input.
+    // - Validating each input row to ensure it has the correct number of columns and valid symbols (S, F, O, X).
+    // - Re-prompting the user until valid input is provided.
+    // 
+    // Returns the map dimensions and the map as a string array representing each row.
+
     internal class InputHandler {
+
         private const int MIN_DIMENSION = 2;
         private const int MAX_DIMENSION = 100;
+        private const string START = "S";
+        private const string FINISH = "F";
+        private const string OPEN_SPACE = "O";
+        private const string ASTEROID = "X";
 
         public static (int rows, int cols, string[] map) GetCosmicMapInput() {
-            int rows = readMapDimensions("Enter number of rows (M): ");
-            int cols = readMapDimensions("Enter number of columns (N): ");
+            int rows = ReadMapDimensions("Enter number of rows (M): ");
+            int cols = ReadMapDimensions("Enter number of columns (N): ");
 
             Console.WriteLine("Enter the cosmic map:");
-            string[] map = new string[rows];
-
-            for (int i = 0; i < rows; i++) {
-                Console.Write($"Row {i + 1}: ");
-                map[i] = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(map[i])) {
-                    throw new ArgumentException($"Row {i + 1} cannot be empty");
-                }
-            }
+            string[] map = ReadMapLines(rows, cols);
 
             return (rows, cols, map);
         }
 
-        private static int readMapDimensions(string prompt) {
+        private static int ReadMapDimensions(string prompt) {
             while (true) {
                 Console.Write(prompt);
                 string input = Console.ReadLine();
@@ -47,5 +53,59 @@
             }
         }
 
+        private static string[] ReadMapLines(int rows, int cols) {
+            string[] map = new string[rows];
+
+            for (int i = 0; i < rows; i++) {
+                while (true) {
+                    Console.Write($"Row {i + 1}: ");
+                    string input = Console.ReadLine();
+
+                    if (!ValidateEmptyInput(input, i)) continue;
+                    if (!ValidateColumnCount(input, cols, i)) continue;
+                    if (!ValidateSymbols(input, i)) continue;
+
+                    map[i] = input;
+                    break;
+                }
+            }
+
+            return map;
+        }
+
+        private static bool ValidateEmptyInput(string input, int rowIndex) {
+            if (string.IsNullOrWhiteSpace(input)) {
+                Console.WriteLine($"Row {rowIndex + 1} cannot be empty. Please enter space-separated symbols.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool ValidateColumnCount(string input, int expectedCols, int rowIndex) {
+            string[] symbols = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            if (symbols.Length != expectedCols) {
+                Console.WriteLine($"Row {rowIndex + 1} must contain exactly {expectedCols} symbols. Found: {symbols.Length}. Please try again.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool ValidateSymbols(string input, int rowIndex) {
+            string[] symbols = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string symbol in symbols) {
+                if (symbol != START && symbol != FINISH && symbol != OPEN_SPACE && symbol != ASTEROID) {
+                    Console.WriteLine($"Invalid symbol '{symbol}' found in row {rowIndex + 1}. Only S, F, O, X are allowed. Please try again.");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
+
 }

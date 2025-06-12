@@ -1,16 +1,20 @@
-﻿using Hitachi_SPACE_2025.CosmicNavigation.Models;
+﻿using Hitachi_SPACE_2025.CosmicNavigation.Exceptions;
+using Hitachi_SPACE_2025.CosmicNavigation.Models;
 
 namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
 
-    // Parses a string representation of a cosmic map from the user (inputLines) into a CosmicMap object,
-    // validating input format, symbol correctness, and ensuring exactly one start and finish symbol.
+    // Parses string input lines into a validated CosmicMap object.
+    // 
+    // Responsibilities include:
+    // - Converting string symbols ("S", "F", "O", "X") into CosmicSymbol enum values.
+    // - Validating each symbol and throwing exceptions on invalid symbols.
+    // - Ensuring exactly one Start (S) and one Finish (F) symbol are present,
+    //   throwing custom exceptions if missing or duplicated.
+    // - Populating the CosmicMap with parsed symbols.
 
     internal class MapParser {
 
         public static CosmicMap ParseMap(string[] inputLines, int rows, int cols) {
-            ValidateInputLines(inputLines);
-            ValidateRowsCount(inputLines, rows);
-
             CosmicMap cosmicMap = new CosmicMap(rows, cols);
             int startSymbolCount = 0;
             int finishSymbolCount = 0;
@@ -18,16 +22,8 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
             for (int row = 0; row < rows; row++) {
                 string[] symbols = inputLines[row].Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                ValidateColumnsCount(symbols, cols, row);
-
                 for (int col = 0; col < cols; col++) {
-                    CosmicSymbol symbol = symbols[col] switch {
-                        "S" => CosmicSymbol.Start,
-                        "F" => CosmicSymbol.Finish,
-                        "O" => CosmicSymbol.OpenSpace,
-                        "X" => CosmicSymbol.Asteroid,
-                        _ => throw new ArgumentException($"Invalid cosmic symbol '{symbols[col]}' at position ({row + 1}, {col + 1}). Allowed symbols are S, F, O, X.")
-                    };
+                    CosmicSymbol symbol = CosmicSymbolParser.Parse(symbols[col]);
 
                     if (symbol == CosmicSymbol.Start) {
                         startSymbolCount++;
@@ -46,42 +42,23 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
             return cosmicMap;
         }
 
-        private static void ValidateInputLines(string[] inputLines) {
-            if (inputLines == null) {
-                throw new ArgumentNullException(nameof(inputLines), "Input lines cannot be null.");
-            }
-        }
-
-        private static void ValidateRowsCount(string[] inputLines, int expectedRows) {
-            if (inputLines.Length != expectedRows) {
-                throw new ArgumentException($"Number of input lines ({inputLines.Length}) does not match the expected number of rows ({expectedRows}).");
-            }
-        }
-
-        private static void ValidateColumnsCount(string[] symbols, int expectedCols, int row) {
-            if (symbols.Length != expectedCols) {
-                throw new ArgumentException(
-                    $"Row {row + 1} does not contain the expected number of columns ({expectedCols}). Found: {symbols.Length}.");
-            }
-        }
-
         private static void ValidateStartSymbolCount(int startSymbolCount) {
             if (startSymbolCount == 0) {
-                throw new ArgumentException("Map must contain exactly one start position (S). None found.");
+                throw new MissingStartPositionException();
             }
 
             if (startSymbolCount > 1) {
-                throw new ArgumentException($"Map must contain exactly one start position (S). Found: {startSymbolCount}");
+                throw new MultipleStartPositionsException(startSymbolCount);
             }
         }
 
         private static void ValidateFinishSymbolCount(int finishSymbolCount) {
             if (finishSymbolCount == 0) {
-                throw new ArgumentException("Map must contain exactly one finish position (F). None found.");
+                throw new MissingFinishPositionException();
             }
 
             if (finishSymbolCount > 1) {
-                throw new ArgumentException($"Map must contain exactly one finish position (F). Found: {finishSymbolCount}");
+                throw new MultipleFinishPositionsException(finishSymbolCount);
             }
         }
 

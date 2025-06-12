@@ -2,9 +2,18 @@
 using Hitachi_SPACE_2025.CosmicNavigation.Models;
 
 namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
+
+    // Provides pathfinding functionality on a cosmic map.
+    // 
+    // This class is responsible for:
+    // - Counting all possible paths from the start position to the finish position using Depth-First Search (DFS).
+    // - Finding the shortest path from start to finish using Breadth-First Search (BFS).
+    // - Throwing a custom exception if no shortest path is found.
+    // - Managing visited positions to avoid revisiting during traversal.
+
     internal class PathFinder {
 
-        private CosmicMap cosmicMap;
+        private readonly CosmicMap cosmicMap;
 
         public PathFinder(CosmicMap cosmicMap) {
             if (cosmicMap == null) {
@@ -42,11 +51,13 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
         }
 
         public List<Position> FindShortestPath() {
-            if (BFS().Count == 0) {
+            List<Position> shortestPath = BFS();
+
+            if (shortestPath.Count == 0) {
                 throw new ShortestPathNotFoundException();
             }
 
-            return BFS();
+            return shortestPath;
         }
 
         private List<Position> BFS() {
@@ -70,7 +81,7 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
 
                 foreach (Position neighbour in GetNeighbors(currentPos)) {
                     if (!visited[neighbour.GetRow(), neighbour.GetCol()] &&
-                cosmicMap.GetSymbol(neighbour.GetRow(), neighbour.GetCol()) != CosmicSymbol.Asteroid) {
+                        cosmicMap.GetSymbol(neighbour.GetRow(), neighbour.GetCol()) != CosmicSymbol.Asteroid) {
                         visited[neighbour.GetRow(), neighbour.GetCol()] = true;
                         List<Position> newPath = new List<Position>(currentPath);
                         newPath.Add(neighbour);
