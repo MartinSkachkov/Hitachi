@@ -28,7 +28,14 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
             Position end = cosmicMap.GetEndPosition();
 
             bool[,] visited = new bool[cosmicMap.GetRows(), cosmicMap.GetCols()];
-            return DFS(start, end, visited);
+
+            int totalPathsCount = DFS(start, end, visited);
+
+            if (totalPathsCount == 0) {
+                throw new NoPathsFoundException();
+            }
+
+            return totalPathsCount;
         }
 
         private int DFS(Position current, Position end, bool[,] visited) {

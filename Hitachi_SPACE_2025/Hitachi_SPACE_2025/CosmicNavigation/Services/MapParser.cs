@@ -23,7 +23,7 @@ namespace Hitachi_SPACE_2025.CosmicNavigation.Services {
                 string[] symbols = inputLines[row].Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
                 for (int col = 0; col < cols; col++) {
-                    CosmicSymbol symbol = CosmicSymbolParser.Parse(symbols[col]);
+                    CosmicSymbol symbol = CosmicSymbolParser.ParseToCosmicSymbol(symbols[col]);
 
                     if (symbol == CosmicSymbol.Start) {
                         startSymbolCount++;

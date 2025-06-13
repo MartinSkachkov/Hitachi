@@ -2,7 +2,16 @@
 
 namespace Hitachi_SPACE_2025.CosmicNavigation.Models {
 
-    // Represents a 2D cosmic map with boundary checks and start/finish markers.
+    // Represents and manages a 2D cosmic navigation map.
+    //
+    // This class is responsible for:
+    // - Storing a grid of symbols representing the cosmic map.
+    // - Enforcing boundary constraints on the map dimensions (minimum and maximum size).
+    // - Providing methods to set and retrieve symbols at specific positions.
+    // - Validating symbol placements for start and finish markers.
+    // - Ensuring all grid interactions are within bounds.
+    // 
+    // Offers properties for retrieving map dimensions, and start/finish positions.
 
     internal class CosmicMap {
 
